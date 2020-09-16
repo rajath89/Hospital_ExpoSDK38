@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "1074652022617",
+    "firebase_url": "https://hospitalusers-d3cda.firebaseio.com",
+    "project_id": "hospitalusers-d3cda",
+    "storage_bucket": "hospitalusers-d3cda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074652022617:android:e08786a43dc18737b8ae48",
+        "android_client_info": {
+          "package_name": "com.example.jhcardio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1074652022617-0chu6in9pbb5kn2anr318krjquvlovv9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0qZqp__hhOwDpclYbelNVBL-_QkPmUrc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1074652022617-0chu6in9pbb5kn2anr318krjquvlovv9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074652022617:android:d383ea42b8b15468b8ae48",
+        "android_client_info": {
+          "package_name": "com.jayadeva.cardio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1074652022617-0chu6in9pbb5kn2anr318krjquvlovv9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0qZqp__hhOwDpclYbelNVBL-_QkPmUrc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1074652022617-0chu6in9pbb5kn2anr318krjquvlovv9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,1 @@
+export const API_URL="https://flask-app47.herokuapp.com/";
