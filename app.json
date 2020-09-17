@@ -1,14 +1,19 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "JHS",
+    "slug": "JHS",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#000000"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -16,17 +21,21 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
+    
     "android": {
       "package": "com.jayadeva.cardio",
       
-
-      "versionCode": 1
-  },
-    "web": {
-      "favicon": "./assets/favicon.png"
+      "googleServicesFile": "./google-services.json",
+      "versionCode": 1,
+      "config": {
+        "googleSignIn": {
+          "apiKey": "AIzaSyA0qZqp__hhOwDpclYbelNVBL-_QkPmUrc"
+        }
     }
+  },
+    "ios": {
+      "supportsTablet": true
+    },
+    "description": ""
   }
 }
