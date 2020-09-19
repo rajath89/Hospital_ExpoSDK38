@@ -7,9 +7,10 @@ import { ToastAndroid } from 'react-native';
 
 
 
-import { Notifications} from 'expo';
-import * as Permissions from 'expo-permissions';
-import Constants from 'expo-constants';
+// import { Notifications} from 'expo';
+
+// import * as Permissions from 'expo-permissions';
+// import Constants from 'expo-constants';
 
 import * as Constant from '../const';
 
@@ -17,9 +18,9 @@ import * as Constant from '../const';
 
 //new notification api
 
-// import Constants from 'expo-constants';
-// import * as Notifications from 'expo-notifications';
-// import * as Permissions from 'expo-permissions';
+import Constants from 'expo-constants';
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
 
 
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -32,13 +33,16 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 
 //new notf api
-// Notifications.setNotificationHandler({
-//   handleNotification: async () => ({
-//     shouldShowAlert: true,
-//     shouldPlaySound: true,
-//     shouldSetBadge: false,
-//   }),
-// });
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
+
+
+
 
 export default class updatePro extends Component {
   
@@ -137,7 +141,7 @@ export default class updatePro extends Component {
 
   componentDidMount() {
    this._retrieveData();
-   this.registerForPushNotificationsAsync();
+   this.registerForPushNotificationsAsync2();
    
 
 
@@ -169,7 +173,96 @@ export default class updatePro extends Component {
 
 
 
-    registerForPushNotificationsAsync = async () => {
+  //   registerForPushNotificationsAsync = async () => {
+  //   if (Constants.isDevice) {
+  //     const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+  //     let finalStatus = existingStatus;
+  //     if (existingStatus !== 'granted') {
+  //       const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+  //       finalStatus = status;
+  //     }
+  //     if (finalStatus !== 'granted') {
+  //       alert('Failed to get push token for push notification!');
+  //       return;
+  //     }
+  //     console.log("hit expo token");
+  //     try {
+  //       const token = await Notifications.getExpoPushTokenAsync();
+  //       //
+  //       if (token){
+  //         this.setState({ expoPushToken: token });
+  //         console.log(token);
+  //         console.log(this.state.globName);
+  //         (async () => {
+  //           const rawResponse = await fetch(Constant.API_URL+'expo', {//exp://192.168.0.104:19000
+  //             method: 'POST',
+  //             headers: {
+  //               'Accept': 'application/json',
+  //               'Content-Type': 'application/json'
+  //             },
+  //             body: JSON.stringify({"username": this.state.globName,"expoToken":token})
+  //           });
+  //           const content = await rawResponse.json();
+          
+  //           console.log(this.state);
+
+  //         })();
+
+
+  //       }else{
+  //            this.setState({ expoPushToken: "token not fetched" });
+  //          }
+  //          //
+  //   } catch (e) {
+  //       console.error(e);
+  //   }
+  //   console.log("after hit expo token");
+
+
+      
+      
+  //     //console.log("token:",token);
+
+  //     // if(token){
+  //     //   this.setState({ expoPushToken: token });
+  //     // }else{
+  //     //   this.setState({ expoPushToken: "token not fetched" });
+  //     // }
+
+      
+
+  //     // if(this.state.expoPushToken){
+  //     //   console.log(this.state.expoPushToken);
+  //     // }
+
+      
+
+
+
+
+
+  //   } else {
+  //     alert('Must use physical device for Push Notifications');
+  //   }
+
+  //   if (Platform.OS === 'android') {
+  //     Notifications.createChannelAndroidAsync('default', {
+  //       name: 'default',
+  //       sound: true,
+  //       priority: 'max',
+  //       vibrate: [0, 250, 250, 250],
+  //     });
+  //   }
+  // };
+
+
+
+
+
+  //new notf api
+
+  registerForPushNotificationsAsync2 = async () => {
+    let token;
     if (Constants.isDevice) {
       const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
       let finalStatus = existingStatus;
@@ -181,14 +274,13 @@ export default class updatePro extends Component {
         alert('Failed to get push token for push notification!');
         return;
       }
-      console.log("hit expo token");
-      try {
-        const token = await Notifications.getExpoPushTokenAsync();
-        //
-        if (token){
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log(token);
+
+              if (token){
           this.setState({ expoPushToken: token });
           console.log(token);
-          console.log(this.state.globName);
+          
           (async () => {
             const rawResponse = await fetch(Constant.API_URL+'expo', {//exp://192.168.0.104:19000
               method: 'POST',
@@ -208,85 +300,24 @@ export default class updatePro extends Component {
         }else{
              this.setState({ expoPushToken: "token not fetched" });
            }
-           //
-    } catch (e) {
-        console.error(e);
-    }
-    console.log("after hit expo token");
-
-
-      
-      
-      //console.log("token:",token);
-
-      // if(token){
-      //   this.setState({ expoPushToken: token });
-      // }else{
-      //   this.setState({ expoPushToken: "token not fetched" });
-      // }
-
-      
-
-      // if(this.state.expoPushToken){
-      //   console.log(this.state.expoPushToken);
-      // }
-
-      
-
-
 
 
 
     } else {
       alert('Must use physical device for Push Notifications');
     }
-
+  
     if (Platform.OS === 'android') {
-      Notifications.createChannelAndroidAsync('default', {
+      Notifications.setNotificationChannelAsync('default', {
         name: 'default',
-        sound: true,
-        priority: 'max',
-        vibrate: [0, 250, 250, 250],
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
       });
     }
-  };
-
-
-
-
-
-  //new notf api
-
-  // registerForPushNotificationsAsync2 = async () => {
-  //   let token;
-  //   if (Constants.isDevice) {
-  //     const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-  //     let finalStatus = existingStatus;
-  //     if (existingStatus !== 'granted') {
-  //       const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-  //       finalStatus = status;
-  //     }
-  //     if (finalStatus !== 'granted') {
-  //       alert('Failed to get push token for push notification!');
-  //       return;
-  //     }
-  //     token = (await Notifications.getExpoPushTokenAsync()).data;
-  //     console.log(token);
-  //   } else {
-  //     alert('Must use physical device for Push Notifications');
-  //   }
   
-  //   if (Platform.OS === 'android') {
-  //     Notifications.setNotificationChannelAsync('default', {
-  //       name: 'default',
-  //       importance: Notifications.AndroidImportance.MAX,
-  //       vibrationPattern: [0, 250, 250, 250],
-  //       lightColor: '#FF231F7C',
-  //     });
-  //   }
-  
-  //   return token;
-  // }
+    return token;
+  }
 
 
 
@@ -683,7 +714,11 @@ export default class updatePro extends Component {
 
 
     getToken=()=>{
+
       this.setState({tokenBool:true});
+
+
+      
     }
 
   render() {
@@ -843,13 +878,13 @@ export default class updatePro extends Component {
 
 
 
-{/* <Button
-          color="#3740FE"
+ {/* <Button
+           color="#3740FE"
           title="get token"
           onPress={() => {this.getToken()}}
-        />
+         />
 
-        {this.state.tokenBool&&<Text>token : {Constant.API_URL+'expo'}</Text>} */}
+        {this.state.tokenBool&&<Text>token : {this.state.expoPushToken}</Text>} */}
 
 
 
