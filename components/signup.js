@@ -20,6 +20,7 @@ export default class Signup extends Component {
       isLoading: false,
       expoPushToken: '',
       notification: {},
+      uCode:''
     }
   }
 
@@ -238,12 +239,44 @@ this.props.navigation.navigate('Login');
     if(this.state.email === '' && this.state.password === '') {
       Alert.alert('Enter details to signup!')
     } else {
-      console.log(this.state.email,this.state.password);
+      console.log(this.state.email,this.state.password,this.state.uCode);
       
       
-      this.setState({
-        isLoading: true,
-      })
+      // this.setState({
+      //   isLoading: true,
+      // })
+
+
+
+
+      (async () => {
+
+
+        this.setState({
+          isLoading: true,
+        })
+
+
+        const rawResponse = await fetch('https://flask-app47.herokuapp.com/uniqueCode', {//exp://192.168.0.104:19000
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({"uCode": this.state.uCode})
+        });
+
+
+
+        const content = await rawResponse.json();
+
+
+      
+        console.log(content["uCode status"]);
+
+
+
+        if(content["uCode status"]=="verified"){
       firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -260,14 +293,40 @@ this.props.navigation.navigate('Login');
           isLoading: false,
           displayName: '',
           email: '', 
-          password: ''
+          password: '',
+          uCode:''
         });
 
         // //this.registerForPushNotificationsAsync();
         this.props.navigation.navigate('Login');
         
       })
-      .catch(error => this.setState({ errorMessage: error.message }))      
+      .catch(error => this.setState({ errorMessage: error.message }))
+    }else if(content["uCode status"]=="not verified"){
+      Alert.alert('Enter correct Unique Code');
+      this.setState({
+        isLoading: false,
+        displayName: '',
+        email: '', 
+        password: '',
+        uCode:''
+      });
+    }
+
+
+
+
+      })();
+
+
+
+
+
+
+
+
+
+      
     }
   }
 
@@ -300,7 +359,15 @@ this.props.navigation.navigate('Login');
           onChangeText={(val) => this.updateInputVal(val, 'password')}
           maxLength={15}
           secureTextEntry={true}
-        />   
+        />
+
+<TextInput
+          style={styles.inputStyle}
+          placeholder="Unique Code"
+          value={this.state.uCode}
+          onChangeText={(val) => this.updateInputVal(val, 'uCode')}
+        />
+
         <Button
           color="#3740FE"
           title="Signup"
