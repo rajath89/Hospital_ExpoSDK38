@@ -433,6 +433,8 @@ setUser = async () => {
 <View style={{margin: 10}}>
                 <PasswordInputText
                     value={this.state.password}
+                    iconSize={20}
+                    fontSize={14}
                     onChangeText={ (password) => this.setState({ password }) }
                 />
             </View>

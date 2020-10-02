@@ -7,6 +7,7 @@ import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import { AsyncStorage } from 'react-native';
+import PasswordInputText from 'react-native-hide-show-password-input';
 
 
 export default class Signup extends Component {
@@ -345,28 +346,46 @@ this.props.navigation.navigate('Login');
           placeholder="Name"
           value={this.state.displayName}
           onChangeText={(val) => this.updateInputVal(val, 'displayName')}
-        />      
+        /> 
+
+                    <View style={styles.hairline} />
+                         
         <TextInput
-          style={styles.inputStyle}
+          style={styles.inputStyle2}
           placeholder="Email"
           value={this.state.email}
           onChangeText={(val) => this.updateInputVal(val, 'email')}
         />
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="Password"
-          value={this.state.password}
-          onChangeText={(val) => this.updateInputVal(val, 'password')}
-          maxLength={15}
-          secureTextEntry={true}
-        />
+<View >
+                <PasswordInputText
+                style={styles.loginText2}
+                label="Password"
+                    value={this.state.password}
+                    iconSize={20}
+                    fontSize={14}
+                    onChangeText={ (password) => this.setState({ password }) }
+                />
+            </View>
 
-<TextInput
+{/* <TextInput
           style={styles.inputStyle}
           placeholder="Unique Code"
           value={this.state.uCode}
           onChangeText={(val) => this.updateInputVal(val, 'uCode')}
-        />
+        /> */}
+
+<View >
+                <PasswordInputText
+                style={styles.loginText3}
+                label="Unique Code"
+                    value={this.state.uCode}
+                    iconSize={20}
+                    fontSize={14}
+                    onChangeText={ (uCode) => this.setState({ uCode }) }
+                />
+            </View>
+
+            <View style={styles.hairline} />
 
         <Button
           color="#3740FE"
@@ -395,6 +414,14 @@ const styles = StyleSheet.create({
     padding: 35,
     backgroundColor: '#fff'
   },
+  container2: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    padding:15,
+    backgroundColor: '#fff'
+  },
   inputStyle: {
     width: '100%',
     marginBottom: 15,
@@ -403,10 +430,24 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderBottomWidth: 1
   },
+  inputStyle2: {
+    width: '100%',
+    marginBottom: 1,
+    paddingBottom: 1,
+    alignSelf: "center",
+    borderColor: "#ccc",
+    borderBottomWidth: 1
+  },
   loginText: {
     color: '#3740FE',
     marginTop: 25,
     textAlign: 'center'
+  },  loginText2: {
+    color: '#3740FE',
+    
+  },  loginText3: {
+    color: '#3740FE',
+    
   },
   preloader: {
     left: 0,
@@ -417,5 +458,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff'
+  },
+  hairline: {
+    
+    height: 18,
+    width: 165
   }
 });
