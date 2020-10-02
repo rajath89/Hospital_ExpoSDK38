@@ -51,6 +51,7 @@ import AboutDoctor from './components/doctorTeam';
 import Comments2 from './components/comments2';
 import DoctorComments from './components/doctorComments';
 import Diet from './components/learMaterials/diet';
+import Disclaimer from './components/disclamer';
 
 
 const store=createStore(reducer);
@@ -333,6 +334,15 @@ component={DoctorComments}
 <Stack.Screen 
 name="Diet" 
 component={Diet} 
+//  options={
+//    //{ title: 'Dashboard' },
+//    {headerLeft: null} 
+//  }
+/>
+
+<Stack.Screen 
+name="Disclaimer" 
+component={Disclaimer} 
 //  options={
 //    //{ title: 'Dashboard' },
 //    {headerLeft: null} 
