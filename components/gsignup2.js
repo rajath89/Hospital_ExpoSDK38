@@ -13,6 +13,15 @@ const image = { uri: "https://reactjs.org/logo-og.png" };
 
 export default class Gsignup2 extends Component {
 
+  constructor() {
+    super();
+    this.state = { 
+
+      isLoading: false,
+
+    }
+  }
+
 
 
     setStringValue = async (value) => {
@@ -30,6 +39,10 @@ export default class Gsignup2 extends Component {
   
 
   signInWithGoogleAsync=async() => {
+
+    this.setState({isLoading:true});
+
+
     try {
       const result = await Google.logInAsync({
         
@@ -40,11 +53,14 @@ export default class Gsignup2 extends Component {
 
       if (result.type === 'success') {
         console.log(result);
+        this.setState({isLoading:false});
         this.setStringValue("TRUE");
-        console.log("ACCESS TOKEN @@@",result.accessToken);
+        
+        
         this.props.navigation.navigate('Jayadeva Hrudaya Spandana');
         
       } else {
+        this.setState({isLoading:false});
         return { cancelled: true };
       }
     } catch (e) {
@@ -57,6 +73,15 @@ export default class Gsignup2 extends Component {
     }
 
   render() {
+
+
+    if(this.state.isLoading){
+      return(
+        <View style={styles.preloader}>
+          <ActivityIndicator size="large" color="#9E9E9E"/>
+        </View>
+      )
+    } 
  
    
     return (
@@ -137,12 +162,12 @@ export default class Gsignup2 extends Component {
 <View style={styles.hairline} />
 
 
-<Text 
+{/* <Text 
           style={styles.loginText}
           
            >
           STEP 2
-        </Text>
+        </Text> */}
 
         <View style={styles.hairline} />
 <View style={styles.hairline} />

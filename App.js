@@ -67,6 +67,10 @@ const store=createStore(reducer);
 const Stack = createStackNavigator();
 
 
+//disable console warnings 
+console.disableYellowBox = true;
+
+
 
 function MyStack() {
 

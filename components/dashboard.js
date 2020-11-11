@@ -255,7 +255,10 @@ const w = Dimensions.get('window');
   getAllKeys = async () => {
     let keys = []
     try {
-      keys = await AsyncStorage.getAllKeys()
+      keys = await AsyncStorage.getAllKeys();
+      // if(keys){
+      //   this.clearAll();
+      // }
     } catch(e) {
       // read key error
     }

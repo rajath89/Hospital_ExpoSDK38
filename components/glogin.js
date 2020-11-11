@@ -12,9 +12,21 @@ const image = { uri: "https://reactjs.org/logo-og.png" };
 
 export default class Glogin extends Component {
 
+  constructor() {
+    super();
+    this.state = { 
+
+      isLoading: false,
+
+    }
+  }
+
+
   
 
   signInWithGoogleAsync=async() => {
+
+    this.setState({isLoading:true});
     try {
       const result = await Google.logInAsync({
         
@@ -25,9 +37,12 @@ export default class Glogin extends Component {
 
       if (result.type === 'success') {
         console.log(result);
+        this.setState({isLoading:false});
         this.props.navigation.navigate('Jayadeva Hrudaya Spandana');
         return result.accessToken;
       } else {
+        this.setState({isLoading:false});
+
         return { cancelled: true };
       }
     } catch (e) {
@@ -35,11 +50,20 @@ export default class Glogin extends Component {
     }
   }
 
+
   signInWithGoogle = () => {
     this.signInWithGoogleAsync()
     }
 
   render() {
+
+    if(this.state.isLoading){
+      return(
+        <View style={styles.preloader}>
+          <ActivityIndicator size="large" color="#9E9E9E"/>
+        </View>
+      )
+    } 
  
    
     return (

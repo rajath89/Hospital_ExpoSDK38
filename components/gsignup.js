@@ -234,12 +234,12 @@ _storeData = async () => {
     return (
       <View style={styles.container}>  
 
-<Text 
+{/* <Text 
           style={styles.loginText}
           
            >
           STEP 1
-        </Text>
+        </Text> */}
 
 
         <TextInput
