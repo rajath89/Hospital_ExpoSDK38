@@ -8,6 +8,8 @@ import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import { AsyncStorage } from 'react-native';
 
+import PasswordInputText from 'react-native-hide-show-password-input';
+
 
 export default class Gsignup extends Component {
   
@@ -24,6 +26,11 @@ export default class Gsignup extends Component {
     }
   }
 
+  componentDidMount() {
+
+      this.getUser();
+  }
+
           clearAll = async () => {
   try {
     await AsyncStorage.clear()
@@ -33,6 +40,27 @@ export default class Gsignup extends Component {
 
   console.log('cleared')
 }
+
+
+
+getUser = async () => {
+
+    let values
+    try {
+      values = await AsyncStorage.multiGet(['globalName', 'googleAccessToken']);
+      //console.log(values);
+  
+    } catch(e) {
+      // read error
+    }
+    console.log("login%%",values[0][1],values[1][1]);
+    if(values[0][1] !== null && values[1][1] !== null){
+      
+        this.props.navigation.navigate('Jayadeva Hrudaya Spandana');
+      
+  }
+
+  }
 
 
   
@@ -140,36 +168,16 @@ _storeData = async () => {
     } else {
       console.log(this.state.email,this.state.uCode);
       
-
-
-      (async () => {
-
-
-        this.setState({
-          isLoading: true,
-        })
-
-
-        const rawResponse = await fetch('https://flask-app47.herokuapp.com/uniqueCode', {//exp://192.168.0.104:19000
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({"uCode": this.state.uCode})
-        });
+      this.setState({
+        isLoading: true,
+      })
 
 
 
-        const content = await rawResponse.json();
-
-
-      
-        console.log(content["uCode status"]);
 
 
 
-        if(content["uCode status"]=="verified"){
+        if(this.state.uCode=="JHS-2020"){
   
 
         this.setStringValue(this.state.email);
@@ -187,7 +195,7 @@ _storeData = async () => {
         // //this.registerForPushNotificationsAsync();
         this.props.navigation.navigate('Google Signup');
 
-    }else if(content["uCode status"]=="not verified"){
+    }else if(this.state.uCode!=="JHS-2020"){
       Alert.alert('Enter correct Unique Code');
       this.setState({
         isLoading: false,
@@ -201,7 +209,7 @@ _storeData = async () => {
 
 
 
-      })();
+
 
 
 
@@ -239,21 +247,39 @@ _storeData = async () => {
           placeholder="Name"
           value={this.state.displayName}
           onChangeText={(val) => this.updateInputVal(val, 'displayName')}
-        />      
+        />  
+
+<View style={styles.hairline} />
+<View style={styles.hairline} />
+<View style={styles.hairline} />
+
         <TextInput
-          style={styles.inputStyle}
+          style={styles.inputStyle2}
           placeholder="Email"
           value={this.state.email}
           onChangeText={(val) => this.updateInputVal(val, 'email')}
         />
 
+<View style={styles.hairline} />
+<View style={styles.hairline} />
 
-<TextInput
-          style={styles.inputStyle}
-          placeholder="Unique Code"
-          value={this.state.uCode}
-          onChangeText={(val) => this.updateInputVal(val, 'uCode')}
-        />
+
+
+<View >
+                <PasswordInputText
+                style={styles.loginText3}
+                label="Unique Code"
+                    value={this.state.uCode}
+                    iconSize={20}
+                    fontSize={14}
+                    onChangeText={ (uCode) => this.setState({ uCode }) }
+                />
+            </View>
+
+
+            <View style={styles.hairline} />
+<View style={styles.hairline} />
+<View style={styles.hairline} />
 
         <Button
           color="#3740FE"
@@ -285,9 +311,17 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderBottomWidth: 1
   },
+  inputStyle2: {
+    width: '100%',
+    
+    
+    alignSelf: "center",
+    borderColor: "#ccc",
+    borderBottomWidth: 1
+  },
   loginText: {
     color: '#3740FE',
-    marginTop: 25,
+    
     textAlign: 'center'
   },
   preloader: {
@@ -299,5 +333,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff'
+  },  loginText3: {
+    color: '#3740FE',
+    
+  },  hairline: {
+    
+    height: 8,
+    width: 165
   }
 });

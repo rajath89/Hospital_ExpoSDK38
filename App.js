@@ -53,6 +53,12 @@ import DoctorComments from './components/doctorComments';
 import Diet from './components/learMaterials/diet';
 
 
+//gOauth branch
+import Glogin from './components/glogin';
+import Gsignup from './components/gsignup';
+import Gsignup2 from './components/gsignup2';
+
+
 const store=createStore(reducer);
 
 
@@ -67,7 +73,7 @@ console.log(store.getState());
 
   return (
     <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName="Signup"
       screenOptions={{
         headerTitleAlign: 'center',
         headerStyle: {
@@ -80,12 +86,20 @@ console.log(store.getState());
       }}>
       <Stack.Screen 
         name="Signup" 
-        component={Signup} 
+        component={Gsignup} 
         options={{ title: 'Signup' }}
-      />       
+      />
+
+<Stack.Screen 
+        name="Google Signup" 
+        component={Gsignup2} 
+        options={{ title: 'Google Signup' }}
+      /> 
+
+
       <Stack.Screen 
         name="Login" 
-        component={Login} 
+        component={Glogin} 
         options={
           {title: 'Login'},
           {headerLeft: null} 

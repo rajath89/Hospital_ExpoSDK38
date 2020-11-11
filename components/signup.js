@@ -361,12 +361,16 @@ this.props.navigation.navigate('Login');
           secureTextEntry={true}
         />
 
-<TextInput
-          style={styles.inputStyle}
-          placeholder="Unique Code"
-          value={this.state.uCode}
-          onChangeText={(val) => this.updateInputVal(val, 'uCode')}
-        />
+<View >
+                <PasswordInputText
+                style={styles.loginText3}
+                label="Unique Code"
+                    value={this.state.uCode}
+                    iconSize={20}
+                    fontSize={14}
+                    onChangeText={ (uCode) => this.setState({ uCode }) }
+                />
+            </View>
 
         <Button
           color="#3740FE"
@@ -417,5 +421,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff'
+  },  loginText3: {
+    color: '#3740FE',
+    
   }
 });

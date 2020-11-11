@@ -5,12 +5,27 @@ import firebase from '../database/firebase';
 import { Button } from 'react-native-elements';
 
 import PasswordInputText from 'react-native-hide-show-password-input';
-import * as Google from 'expo-google-app-auth'
+import * as Google from 'expo-google-app-auth';
+import { AsyncStorage } from 'react-native';
 
 
 const image = { uri: "https://reactjs.org/logo-og.png" };
 
 export default class Gsignup2 extends Component {
+
+
+
+    setStringValue = async (value) => {
+        try {
+          await AsyncStorage.setItem('googleAccessToken', value)
+        } catch(e) {
+          // save error
+        }
+    
+        
+        console.log('setting googleaccesstoken');
+    
+      }
 
   
 
@@ -25,8 +40,10 @@ export default class Gsignup2 extends Component {
 
       if (result.type === 'success') {
         console.log(result);
+        this.setStringValue("TRUE");
+        console.log("ACCESS TOKEN @@@",result.accessToken);
         this.props.navigation.navigate('Jayadeva Hrudaya Spandana');
-        return result.accessToken;
+        
       } else {
         return { cancelled: true };
       }
