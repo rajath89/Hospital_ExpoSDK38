@@ -246,10 +246,9 @@ const w = Dimensions.get('window');
 
 
   signOut = () => {
-    firebase.auth().signOut().then(() => {
+    
       this.props.navigation.navigate('Login')
-    })
-    .catch(error => this.setState({ errorMessage: error.message }))
+  
     
   }
   
@@ -499,7 +498,7 @@ onPress={() => {this.props.navigation.navigate('Learning Materials',{screen:'pdf
 title="Logout"
 title={this.state.kannada == false ? 'Logout' : 'ಲಾಗ್ ಔಟ್'} 
 type="clear"
-onPress={() => this.signOut()}
+onPress={() => {this.signOut(),this.getAllKeys()}}
 />
 <Text>{this.props.red.text}</Text>
 
