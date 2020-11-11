@@ -89,6 +89,19 @@ onPress={() => this.props.navigation.navigate('Developers')}
 />
 </View>
 
+<View style={styles.hairline} />
+
+
+<View style={styles.card}>
+
+<Button
+title="Disclaimer"
+type="clear"
+onPress={() => this.props.navigation.navigate('Disclaimer')}
+
+/>
+</View>
+
 
 
         

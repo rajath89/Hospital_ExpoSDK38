@@ -9,6 +9,8 @@ import {QuesList} from './QuesList';
 import { AsyncStorage } from 'react-native';
 
 
+
+
 export default class Login extends Component {
   
   constructor() {
@@ -321,6 +323,27 @@ setUser = async () => {
       });
 
       this._storeData();
+
+
+//           (async () => {
+
+
+//             const isAvailable = await SMS.isAvailableAsync();
+// if (isAvailable) {
+//   // do your SMS stuff here
+// console.log("%%%%%%%%%%%%%%%%%%%%SMS))))))))))");
+// const { result } = await SMS.sendSMSAsync(
+//   ['8050896653'],
+//   'My sample HelloWorld message'
+// );
+// } else {
+//   // misfortune... there's no SMS available on this device
+// }
+
+//   })();
+
+
+
     
 
       //console.log(this.state.email,this.state.password);
@@ -410,6 +433,8 @@ setUser = async () => {
 <View style={{margin: 10}}>
                 <PasswordInputText
                     value={this.state.password}
+                    iconSize={20}
+                    fontSize={14}
                     onChangeText={ (password) => this.setState({ password }) }
                 />
             </View>
