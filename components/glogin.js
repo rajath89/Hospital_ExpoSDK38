@@ -97,6 +97,7 @@ export default class Glogin extends Component {
       const result = await Google.logInAsync({
         
         behavior:'web',
+        ////androidStandaloneAppClientId : "1074652022617-2qdsd5u79lctfhtolcjlo0bicsav3dqe.apps.googleusercontent.com"
         androidClientId: "1074652022617-2qdsd5u79lctfhtolcjlo0bicsav3dqe.apps.googleusercontent.com",
         
       });

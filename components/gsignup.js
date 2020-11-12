@@ -249,7 +249,7 @@ _storeData = async () => {
           onChangeText={(val) => this.updateInputVal(val, 'displayName')}
         />  
 
-<View style={styles.hairline} />
+{/* <View style={styles.hairline} />
 <View style={styles.hairline} />
 <View style={styles.hairline} />
 
@@ -258,10 +258,10 @@ _storeData = async () => {
           placeholder="Email"
           value={this.state.email}
           onChangeText={(val) => this.updateInputVal(val, 'email')}
-        />
+        /> */}
 
-<View style={styles.hairline} />
-<View style={styles.hairline} />
+{/* <View style={styles.hairline} />
+<View style={styles.hairline} /> */}
 
 
 

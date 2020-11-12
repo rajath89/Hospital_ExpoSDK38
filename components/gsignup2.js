@@ -7,6 +7,7 @@ import { Button } from 'react-native-elements';
 import PasswordInputText from 'react-native-hide-show-password-input';
 import * as Google from 'expo-google-app-auth';
 import { AsyncStorage } from 'react-native';
+import { ToastAndroid } from 'react-native';
 
 
 const image = { uri: "https://reactjs.org/logo-og.png" };
@@ -64,6 +65,7 @@ export default class Gsignup2 extends Component {
       const result = await Google.logInAsync({
         
         behavior:'web',
+        //androidStandaloneAppClientId : "1074652022617-2qdsd5u79lctfhtolcjlo0bicsav3dqe.apps.googleusercontent.com"
         androidClientId: "1074652022617-2qdsd5u79lctfhtolcjlo0bicsav3dqe.apps.googleusercontent.com",
         
       });
@@ -76,7 +78,7 @@ export default class Gsignup2 extends Component {
         this._storeData(result.user.email,"TRUE");
 
         
-        
+        ToastAndroid.show('Successfully Signed Up', ToastAndroid.SHORT);
         this.props.navigation.navigate('Jayadeva Hrudaya Spandana');
         
       } else {
