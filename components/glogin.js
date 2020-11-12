@@ -5,7 +5,10 @@ import firebase from '../database/firebase';
 import { Button } from 'react-native-elements';
 
 import PasswordInputText from 'react-native-hide-show-password-input';
-import * as Google from 'expo-google-app-auth'
+import * as Google from 'expo-google-app-auth';
+
+import { ToastAndroid } from 'react-native';
+import { AsyncStorage } from 'react-native';
 
 
 const image = { uri: "https://reactjs.org/logo-og.png" };
@@ -17,9 +20,72 @@ export default class Glogin extends Component {
     this.state = { 
 
       isLoading: false,
+      storeStatus:false
 
     }
   }
+
+
+  getUser = async (em) => {
+
+    let values
+    try {
+      values = await AsyncStorage.multiGet(['globalName', 'googleAccessToken']);
+      //console.log(values);
+  
+    } catch(e) {
+      // read error
+    }
+    console.log("login%%",values[0][1],values[1][1]);
+    if(values[0][1] === em){
+      
+        console.log("clear");
+        this.props.navigation.navigate('Jayadeva Hrudaya Spandana');
+
+      
+  }else{
+    ToastAndroid.show('Please login with the email provided for the registration', ToastAndroid.LONG);
+    this.setState({isLoading:false});
+  }
+
+  }
+
+
+  _storeData = async (em,accTok) => {
+    const firstPair = ["googleAccessToken", accTok]
+    const secondPair = ["globalName", em]
+    console.log(firstPair,secondPair);
+    try {
+      await AsyncStorage.multiSet([firstPair, secondPair]);
+
+    } catch(e) {
+      //save error
+    }
+  
+    console.log("Done.");
+
+  
+  }
+
+  _retrieveData = async (em) => {
+    console.log("###")
+    try {
+      const value = await AsyncStorage.getItem('globalName');
+      if (value !== null) {
+        // We have data!!
+        if(value==em){
+          this.setState({isLoading:false});
+          this.props.navigation.navigate('Jayadeva Hrudaya Spandana');
+        }else{
+          ToastAndroid.show('Please login with the email provided for the registration', ToastAndroid.LONG);
+          this.setState({isLoading:false});
+        }
+      }
+    } catch (error) {
+      // Error retrieving data
+      console.log(error);
+    }
+  };
 
 
   
@@ -36,9 +102,16 @@ export default class Glogin extends Component {
       });
 
       if (result.type === 'success') {
-        console.log(result);
-        this.setState({isLoading:false});
-        this.props.navigation.navigate('Jayadeva Hrudaya Spandana');
+        console.log(result.user.email);
+
+        
+       // this.setState({em:result.user.email,accTok:"TRUE",isLoading:false});
+        //this.getUser(result.user.email);
+
+        //this.props.navigation.navigate('Jayadeva Hrudaya Spandana');
+
+        //this.setState({isLoading:false});
+        this._retrieveData(result.user.email);
         return result.accessToken;
       } else {
         this.setState({isLoading:false});

@@ -180,7 +180,7 @@ _storeData = async () => {
         if(this.state.uCode=="JHS-2020"){
   
 
-        this.setStringValue(this.state.email);
+        //this.setStringValue(this.state.email);
 
         console.log('User verified');
        //this.getRegDetails();

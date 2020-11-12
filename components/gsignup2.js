@@ -36,6 +36,23 @@ export default class Gsignup2 extends Component {
     
       }
 
+
+      _storeData = async (em,accTok) => {
+        const firstPair = ["googleAccessToken", accTok]
+        const secondPair = ["globalName", em]
+        console.log(firstPair,secondPair);
+        try {
+          await AsyncStorage.multiSet([firstPair, secondPair]);
+
+        } catch(e) {
+          //save error
+        }
+      
+        console.log("Done.");
+
+      
+      }
+
   
 
   signInWithGoogleAsync=async() => {
@@ -52,9 +69,12 @@ export default class Gsignup2 extends Component {
       });
 
       if (result.type === 'success') {
-        console.log(result);
+        console.log(result.user.email);
+
         this.setState({isLoading:false});
-        this.setStringValue("TRUE");
+        //this.setStringValue("TRUE");
+        this._storeData(result.user.email,"TRUE");
+
         
         
         this.props.navigation.navigate('Jayadeva Hrudaya Spandana');
